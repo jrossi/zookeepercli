@@ -54,6 +54,11 @@ GLOBAL OPTIONS:
     
     
 ```
+# Look some path with zkcli from docker 
+docker run -it zkcli:latest zkcli --servers zk-server.example.com:2181 ls "/path/"
+```
+
+```
 
 $ zkcli --servers srv-1,srv-2,srv-3 -c create /demo_only some_value
 
