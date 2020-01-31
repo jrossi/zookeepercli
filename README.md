@@ -34,7 +34,7 @@ VERSION:
 AUTHOR(S):
 
 COMMANDS:
-   exists                       zkcli excists <path>
+   exists                       zkcli exists <path>
    get                          zkcli get <path>
    set                          zkcli set <path> [data]
    create                       zkcli create [command options] <path> <data>
