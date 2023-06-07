@@ -17,15 +17,14 @@
 package main
 
 import (
-	"github.com/go-zkcli/zkcli/output"
-	"github.com/go-zkcli/zkcli/zk"
-
-	"github.com/outbrain/golib/log"
-
-	"github.com/codegangsta/cli"
 	"io/ioutil"
 	"os"
 	"strings"
+
+	"github.com/go-zkcli/zkcli/output"
+	"github.com/go-zkcli/zkcli/zk"
+	"github.com/outbrain/golib/log"
+	"github.com/urfave/cli"
 )
 
 var (
