@@ -18,11 +18,12 @@
 package zk
 
 import (
-	"github.com/outbrain/golib/log"
-	"github.com/samuel/go-zookeeper/zk"
 	gopath "path"
 	"sort"
 	"time"
+
+	"github.com/outbrain/golib/log"
+	"github.com/samuel/go-zookeeper/zk"
 )
 
 var servers []string
@@ -67,6 +68,18 @@ func Get(path string) ([]byte, error) {
 
 	data, _, err := connection.Get(path)
 	return data, err
+}
+
+// Stat returns the `Stat` struct associated with given path, or error if path does not exist
+func Stat(path string) (*zk.Stat, error) {
+	connection, err := connect()
+	if err != nil {
+		return nil, err
+	}
+	defer connection.Close()
+
+	_, stat, err := connection.Get(path)
+	return stat, err
 }
 
 // Children returns sub-paths of given path, optionally empty array, or error if path does not exist

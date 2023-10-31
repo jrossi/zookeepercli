@@ -46,3 +46,30 @@ func PrintStringArray(stringArray []string, formatType string) {
 		fmt.Println(string(s))
 	}
 }
+
+// Pair is a simple struct used to print map values. We use pairs
+// instead of maps, so we can order the entries.
+type Pair struct {
+	Key   string
+	Value string
+}
+
+// PrintMap prints out a map, given an ordered set of key, value pairs.
+func PrintMap(items []Pair, formatType string) {
+	switch formatType {
+	case "txt":
+		for _, item := range items {
+			fmt.Printf("%s: %s\n", item.Key, item.Value)
+		}
+	case "json":
+		fmt.Println("{")
+		for i, item := range items {
+			maybeComma := ","
+			if i == len(items)-1 {
+				maybeComma = ""
+			}
+			fmt.Printf("  %q: %q%s\n", item.Key, item.Value, maybeComma)
+		}
+		fmt.Println("}")
+	}
+}

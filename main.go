@@ -19,7 +19,9 @@ package main
 import (
 	"io/ioutil"
 	"os"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/go-zkcli/zkcli/output"
 	"github.com/go-zkcli/zkcli/zk"
@@ -91,6 +93,30 @@ func main() {
 			Action: func(c *cli.Context) {
 				if result, err := zk.Get(c.Args().First()); err == nil {
 					output.PrintString(result, format)
+				} else {
+					log.Fatale(err)
+				}
+
+			},
+		},
+		{
+			Name:        "stat",
+			Usage:       "zkcli stat <path>",
+			Description: "Get file status information for znode at <path>.",
+			Action: func(c *cli.Context) {
+				if stat, err := zk.Stat(c.Args().First()); err == nil {
+					switch format {
+					case "txt":
+						output.PrintMap([]output.Pair{
+							{Key: "Created at", Value: time.UnixMilli(stat.Ctime).Format("2006-01-02 15:04:05.999999999")},
+							{Key: "Modified at", Value: time.UnixMilli(stat.Mtime).Format("2006-01-02 15:04:05.999999999")},
+						}, format)
+					case "json":
+						output.PrintMap([]output.Pair{
+							{Key: "ctime", Value: strconv.FormatInt(stat.Ctime, 10)},
+							{Key: "mtime", Value: strconv.FormatInt(stat.Mtime, 10)},
+						}, format)
+					}
 				} else {
 					log.Fatale(err)
 				}
